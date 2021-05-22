@@ -34,15 +34,6 @@ functions:
           method: get
           path: todos
           cors: true
-
-  # TODO: Configure this function
-  GetTodo:
-    handler: src/lambda/http/getTodo.handler
-    events:
-      - http:
-          method: get
-          path: todos
-          cors: true
           
   CreateTodo:
     handler: src/lambda/http/createTodo.handler
