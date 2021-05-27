@@ -15,9 +15,10 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   const timestamp = new Date().toISOString()
 
   const createTodo = {
-    partionKey: todoId,
+    todoId: todoId,
+    userId:'1',
     createdAt: timestamp,
-    done: 'false',
+    done: 0,
     attachmentUrl: '',
     ...newTodo
   }
