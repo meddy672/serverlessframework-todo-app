@@ -6,14 +6,14 @@ const docClient = new AWS.DynamoDB.DocumentClient()
 const todosTable = process.env.TODO_TABLE
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  const todoId = event.pathParameters.todoId
+  const userId = event.pathParameters.userId
   console.log('Processing event:', event)
 
   const result = await docClient.query({
     TableName: todosTable,
-    KeyConditionExpression: 'todoId = :todoId',
+    KeyConditionExpression: 'userId = :userId',
     ExpressionAttributeValues: {
-      ':todoId': todoId
+      ':userId': userId
     },
     ScanIndexForward: false
   }).promise()
