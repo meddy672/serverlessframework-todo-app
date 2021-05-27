@@ -42,8 +42,13 @@ functions:
     events:
       - http:
           method: get
-          path: todos
+          path: todos/{todoId}
           cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODO_TABLE}          
           
   CreateTodo:
     handler: src/lambda/http/createTodo.handler
