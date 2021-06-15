@@ -1,5 +1,7 @@
 import 'source-map-support/register'
 import * as AWS from 'aws-sdk'
+
+
 import { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } from 'aws-lambda'
 
 const docClient = new AWS.DynamoDB.DocumentClient()
@@ -11,8 +13,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   await docClient.delete({
     TableName: todosTable,
     Key: {
-      HashKey: todoId,
-      NumberRangeKey: 1
+      todoId,
     }
   }).promise()
 

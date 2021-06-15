@@ -51,6 +51,7 @@ export class Todos extends React.PureComponent<TodosProps, TodosState> {
         name: this.state.newTodoName,
         dueDate
       })
+      console.log(newTodo)
       this.setState({
         todos: [...this.state.todos, newTodo],
         newTodoName: ''
@@ -160,6 +161,7 @@ export class Todos extends React.PureComponent<TodosProps, TodosState> {
     return (
       <Grid padded>
         {this.state.todos.map((todo, pos) => {
+          console.log(todo)
           return (
             <Grid.Row key={todo.todoId}>
               <Grid.Column width={1} verticalAlign="middle">

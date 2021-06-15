@@ -13,7 +13,7 @@ provider:
   region: ${opt:region, 'us-east-1'}
 
   environment:
-    TODO_TABLE: Todos-${self:provider.stage}
+    TODO_TABLE: Todo2.1-${self:provider.stage}
     TODO_S3_BUCKET: todo-image-bucket-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300 
     TODO_ID_INDEX: TodoIdIndex
@@ -35,20 +35,7 @@ provider:
 functions:
 
   Auth:
-    handler: src/lambda/auth/auth0Authorizer.handler
-
-  GetTodos:
-    handler: src/lambda/http/getTodos.handler
-    events:
-      - http:
-          method: get
-          path: todos/{userId}
-          cors: true
-    iamRoleStatements:
-      - Effect: Allow
-        Action:
-          - dynamodb:Query
-        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODO_TABLE}          
+    handler: src/lambda/auth/auth0Authorizer.handler         
           
   CreateTodo:
     handler: src/lambda/http/createTodo.handler
@@ -61,7 +48,20 @@ functions:
       - Effect: Allow
         Action:
           - dynamodb:PutItem
-        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODO_TABLE}          
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODO_TABLE}
+        
+  GetTodos:
+    handler: src/lambda/http/getTodos.handler
+    events:
+      - http:
+          method: get
+          path: todos
+          cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODO_TABLE}         
 
   UpdateTodo:
     handler: src/lambda/http/updateTodo.handler
@@ -78,12 +78,17 @@ functions:
           method: delete
           path: todos/{todoId}
           cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:DeleteItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODO_TABLE}          
 
   GenerateUploadUrl:
     handler: src/lambda/http/generateUploadUrl.handler
     events:
       - http:
-          method: post
+          method: put
           path: todos/{todoId}/attachment
           cors: true
 
@@ -115,9 +120,9 @@ resources:
       GlobalSecondaryIndexes:
         - IndexName: ${self:provider.environment.TODO_ID_INDEX}
           KeySchema:
-          - AttributeName: todoId
-            KeyType: HASH
           - AttributeName: userId
+            KeyType: HASH
+          - AttributeName: todoId
             KeyType: RANGE  
           Projection:
             ProjectionType: ALL                  
