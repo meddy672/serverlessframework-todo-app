@@ -25,6 +25,7 @@ provider:
         - dynamodb:DeleteItem
         - dynamodb:Query
         - dynamodb:GetItem  
+        - dynamodb:UpdateItem
       Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODO_TABLE}
     - Effect: Allow
       Action:
@@ -33,7 +34,6 @@ provider:
       Resource: arn:aws:s3:::${self:provider.environment.TODO_S3_BUCKET}/*
 
 functions:
-
   Auth:
     handler: src/lambda/auth/auth0Authorizer.handler         
           
@@ -70,6 +70,11 @@ functions:
           method: patch
           path: todos/{todoId}
           cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:UpdateItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODO_TABLE}            
 
   DeleteTodo:
     handler: src/lambda/http/deleteTodo.handler
@@ -90,7 +95,16 @@ functions:
       - http:
           method: put
           path: todos/{todoId}/attachment
-          cors: true
+          cors: true          
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - s3:PutObject
+        Resource: arn:aws:s3:::${self:provider.environment.TODO_S3_BUCKET}/* 
+      - Effect: Allow
+        Action:
+          - dynamodb:UpdateItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODO_TABLE}                    
 
 resources:
   Resources:

@@ -2,6 +2,7 @@ import 'source-map-support/register'
 import { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } from 'aws-lambda'
 import * as AWS  from 'aws-sdk'
 import * as uuid from 'uuid'
+import {getUserId} from '../utils'
 
 const docClient = new AWS.DynamoDB.DocumentClient()
 
@@ -34,11 +35,13 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   }  
 }
 
-async function createImage(todoId: string, imageId: string, event: any) {
+async function createImage(todoId: string, imageId: string, event: APIGatewayProxyEvent) {
   const timestamp = new Date().toISOString()
   const newImage = JSON.parse(event.body)
+  const userId = getUserId(event)
 
   const newItem = {
+    userId,
     todoId,
     timestamp,
     imageId,
@@ -50,7 +53,10 @@ async function createImage(todoId: string, imageId: string, event: any) {
   await docClient
     .put({
       TableName: todoTable,
-      Item: newItem
+      Item: newItem,
+      Key: {
+        
+      }
     })
     .promise()
 
