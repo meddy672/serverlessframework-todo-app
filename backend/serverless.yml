@@ -113,9 +113,9 @@ resources:
        - AttributeName: userId
          AttributeType: S
       KeySchema:
-        - AttributeName: todoId
-          KeyType: HASH
         - AttributeName: userId
+          KeyType: HASH
+        - AttributeName: todoId
           KeyType: RANGE             
       GlobalSecondaryIndexes:
         - IndexName: ${self:provider.environment.TODO_ID_INDEX}
@@ -123,7 +123,7 @@ resources:
           - AttributeName: userId
             KeyType: HASH
           - AttributeName: todoId
-            KeyType: RANGE  
+            KeyType: RANGE            
           Projection:
             ProjectionType: ALL                  
       BillingMode: PAY_PER_REQUEST

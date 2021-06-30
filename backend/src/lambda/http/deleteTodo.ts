@@ -1,4 +1,5 @@
 import 'source-map-support/register'
+import { getUserId } from '../utils'
 import * as AWS from 'aws-sdk'
 
 
@@ -9,11 +10,14 @@ const todosTable = process.env.TODO_TABLE
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const todoId = event.pathParameters.todoId
+  const userId = getUserId(event)
 
   await docClient.delete({
     TableName: todosTable,
     Key: {
-      todoId,
+      userId: userId,
+      todoId: todoId
+       
     }
   }).promise()
 

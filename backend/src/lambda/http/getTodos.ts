@@ -14,14 +14,13 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 
   const result = await docClient.query({
     TableName: todosTable,
-    KeyConditionExpression: 'userId = :userId AND todoId = :todoId',
+    KeyConditionExpression: 'userId = :userId',
     ExpressionAttributeValues: {
       ':userId': userId
-    },
-    ScanIndexForward: false
+    }
   }).promise()
 
-  const items = result.Items as TodoItem[]
+  const todos = result.Items as TodoItem[]
 
   return {
       statusCode: 200,
@@ -29,7 +28,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
         'Access-Control-Allow-Origin':'*'  
       },
       body: JSON.stringify({
-          items
+          todos
       })
   }
 
