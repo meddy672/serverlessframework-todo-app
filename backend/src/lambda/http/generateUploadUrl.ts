@@ -48,15 +48,12 @@ async function createImage(todoId: string, imageId: string, event: APIGatewayPro
     ...newImage,
     imageUrl: `https://${bucketName}.s3.amazonaws.com/${todoId}`
   }
-  console.log('Storing new item: ', newItem)
+  console.log('Storing new item: ', newItem, userId)
 
   await docClient
     .put({
       TableName: todoTable,
       Item: newItem,
-      Key: {
-        
-      }
     })
     .promise()
 

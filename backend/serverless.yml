@@ -93,7 +93,7 @@ functions:
     handler: src/lambda/http/generateUploadUrl.handler
     events:
       - http:
-          method: put
+          method: post
           path: todos/{todoId}/attachment
           cors: true          
     iamRoleStatements:
@@ -103,7 +103,7 @@ functions:
         Resource: arn:aws:s3:::${self:provider.environment.TODO_S3_BUCKET}/* 
       - Effect: Allow
         Action:
-          - dynamodb:UpdateItem
+          - dynamodb:PutItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODO_TABLE}                    
 
 resources:
