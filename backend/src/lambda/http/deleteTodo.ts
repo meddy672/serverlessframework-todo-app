@@ -17,7 +17,6 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
     Key: {
       userId: userId,
       todoId: todoId
-       
     }
   }).promise()
 

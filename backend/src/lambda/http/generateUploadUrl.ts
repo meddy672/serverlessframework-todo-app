@@ -2,7 +2,7 @@ import 'source-map-support/register'
 import { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } from 'aws-lambda'
 import * as AWS  from 'aws-sdk'
 import * as uuid from 'uuid'
-import {getUserId} from '../utils'
+import { getUserId } from '../utils'
 
 const docClient = new AWS.DynamoDB.DocumentClient()
 
@@ -36,20 +36,37 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 }
 
 async function createImage(todoId: string, imageId: string, event: APIGatewayProxyEvent) {
-  const timestamp = new Date().toISOString()
-  const newImage = JSON.parse(event.body)
   const userId = getUserId(event)
 
+  // get the attributes of the todo to edit
+  const todo = await docClient
+  .get({
+    TableName: todoTable,
+    Key: {
+      userId,
+      todoId
+    },
+    ProjectionExpression: "#name, createdAt, done, dueDate",
+    ExpressionAttributeNames: {
+      "#name": "name"
+    }
+  }).promise()
+  console.log('Editing Todo',todo)
+
+  // create new todo
   const newItem = {
     userId,
     todoId,
-    timestamp,
+    name: todo.Item.name,
+    createdAt: todo.Item.createdAt,
+    done: todo.Item.done,
+    dueDate: todo.Item.dueDate,
     imageId,
-    ...newImage,
     imageUrl: `https://${bucketName}.s3.amazonaws.com/${todoId}`
   }
-  console.log('Storing new item: ', newItem, userId)
+  console.log('Storing new item: ', newItem)
 
+  // save new todo
   await docClient
     .put({
       TableName: todoTable,

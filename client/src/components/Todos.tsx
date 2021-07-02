@@ -30,11 +30,14 @@ interface TodosState {
 }
 
 export class Todos extends React.PureComponent<TodosProps, TodosState> {
+  
   state: TodosState = {
     todos: [],
     newTodoName: '',
     loadingTodos: true
   }
+
+  
 
   handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ newTodoName: event.target.value })
