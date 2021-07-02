@@ -1,16 +1,18 @@
 import 'source-map-support/register'
 import * as AWS from 'aws-sdk'
 import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } from 'aws-lambda'
-import {getUserId} from '../utils'
+import { getUserId } from '../utils'
+import { createLogger } from '../../utils/logger'
 
 import * as uuid from 'uuid'
 import { CreateTodoRequest } from '../../requests/CreateTodoRequest'
 
 const docClient = new AWS.DynamoDB.DocumentClient();
 const todosTable = process.env.TODO_TABLE
-
+const logger = createLogger('Create Todo')
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+  
   const newTodo: CreateTodoRequest = JSON.parse(event.body)
   const todoId = uuid.v4().toString()
   const userId = getUserId(event)
@@ -25,16 +27,27 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
     ...newTodo
   }
 
-  await docClient.put({
-    TableName: todosTable,
-    Item: item
-  }).promise();
+  logger.info('creating todo', item)
+  
+  try {
 
-  return {
-    statusCode: 201,
-    headers: {
-      "Access-Control-Allow-Origin": "*"
-    },
-    body: JSON.stringify({ item })
-  };
+    await docClient.put({
+      TableName: todosTable,
+      Item: item
+    }).promise();
+  
+    return {
+      statusCode: 201,
+      headers: {
+        "Access-Control-Allow-Origin": "*"
+      },
+      body: JSON.stringify({ item })
+    }
+
+  } catch (error) {
+    // handle error cases
+    logger.warn('failure', { error: error.message})
+  }
+
+
 }

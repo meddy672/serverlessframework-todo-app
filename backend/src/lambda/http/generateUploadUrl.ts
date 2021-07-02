@@ -1,8 +1,10 @@
 import 'source-map-support/register'
 import { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } from 'aws-lambda'
-import * as AWS  from 'aws-sdk'
+import * as AWS from 'aws-sdk'
 import * as uuid from 'uuid'
 import { getUserId } from '../utils'
+import { TodoItem } from '../../models/TodoItem'
+import { createLogger } from '../../utils/logger'
 
 const docClient = new AWS.DynamoDB.DocumentClient()
 
@@ -13,15 +15,15 @@ const s3 = new AWS.S3({
 const todoTable = process.env.TODO_TABLE
 const bucketName = process.env.TODO_S3_BUCKET
 const urlExpiration = process.env.SIGNED_URL_EXPIRATION
+const logger = createLogger('GenerateUrl')
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const todoId = event.pathParameters.todoId
 
   console.log('Caller event', event)
   const imageId = uuid.v4()
-  const newItem = await createImage(todoId, imageId, event)
-  
   const url = getUploadUrl(imageId)
+  const newItem = await createImage(todoId, imageId, event)
 
   return {
     statusCode: 201,
@@ -32,49 +34,59 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
       newItem: newItem,
       uploadUrl: url
     })
-  }  
+  }
 }
 
 async function createImage(todoId: string, imageId: string, event: APIGatewayProxyEvent) {
   const userId = getUserId(event)
 
-  // get the attributes of the todo to edit
-  const todo = await docClient
-  .get({
-    TableName: todoTable,
-    Key: {
+  try {
+
+    // get the attributes of the todo being edited
+    const todo = await docClient
+      .get({
+        TableName: todoTable,
+        Key: {
+          userId,
+          todoId
+        },
+        ProjectionExpression: "#name, createdAt, done, dueDate",
+        ExpressionAttributeNames: {
+          "#name": "name"
+        }
+      }).promise()
+    logger.info('get todo', todo)
+
+
+    // create new todo
+    const { name, createdAt, done, dueDate } = todo.Item
+    const newItem: TodoItem = {
       userId,
-      todoId
-    },
-    ProjectionExpression: "#name, createdAt, done, dueDate",
-    ExpressionAttributeNames: {
-      "#name": "name"
+      todoId,
+      name,
+      createdAt,
+      done,
+      dueDate,
+      attachmentUrl: `https://${bucketName}.s3.amazonaws.com/${imageId}`
     }
-  }).promise()
-  console.log('Editing Todo',todo)
+    console.log('Storing new item: ', newItem)
 
-  // create new todo
-  const newItem = {
-    userId,
-    todoId,
-    name: todo.Item.name,
-    createdAt: todo.Item.createdAt,
-    done: todo.Item.done,
-    dueDate: todo.Item.dueDate,
-    imageId,
-    imageUrl: `https://${bucketName}.s3.amazonaws.com/${todoId}`
+    // save new todo
+    await docClient
+      .put({
+        TableName: todoTable,
+        Item: newItem,
+      })
+      .promise()
+      logger.info('put todo', newItem)
+    return newItem as TodoItem
+
+  } catch (error) {
+    // check for db error code and types
+    // log errors
+    logger.warn('Failure', {error: error.message})
   }
-  console.log('Storing new item: ', newItem)
 
-  // save new todo
-  await docClient
-    .put({
-      TableName: todoTable,
-      Item: newItem,
-    })
-    .promise()
-
-  return newItem
 }
 
 function getUploadUrl(imageId: string) {
