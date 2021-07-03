@@ -20,6 +20,10 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
     const result = await docClient.query({
       TableName: todosTable,
       KeyConditionExpression: 'userId = :userId',
+      ProjectionExpression: '#name, todoId, done, dueDate, createdAt, attachmentUrl',
+      ExpressionAttributeNames: {
+        "#name": "name"
+      },
       ExpressionAttributeValues: {
         ':userId': userId
       }

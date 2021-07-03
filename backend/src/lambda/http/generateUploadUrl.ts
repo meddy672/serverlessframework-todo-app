@@ -20,7 +20,7 @@ const logger = createLogger('GenerateUrl')
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const todoId = event.pathParameters.todoId
 
-  console.log('Caller event', event)
+  logger.info('Caller event', event)
   const imageId = uuid.v4()
   const url = getUploadUrl(imageId)
   const newItem = await createImage(todoId, imageId, event)
@@ -69,7 +69,6 @@ async function createImage(todoId: string, imageId: string, event: APIGatewayPro
       dueDate,
       attachmentUrl: `https://${bucketName}.s3.amazonaws.com/${imageId}`
     }
-    console.log('Storing new item: ', newItem)
 
     // save new todo
     await docClient
