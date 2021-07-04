@@ -45,7 +45,6 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
     }
 
   } catch (error) {
-    // handle error cases
     logger.warn('failure', { error: error.message})
   }
 

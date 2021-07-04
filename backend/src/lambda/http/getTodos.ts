@@ -14,7 +14,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   const userId = getUserId(event)
   console.log('Processing event:', event)
 
-  logger.info('Getting todos')
+  logger.info('Getting todos', userId)
   try {
 
     const result = await docClient.query({
@@ -42,7 +42,6 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
     }
 
   } catch (error) {
-    // handle error cases scenarios
     logger.warn('failure', { error: error.message})
   }
 

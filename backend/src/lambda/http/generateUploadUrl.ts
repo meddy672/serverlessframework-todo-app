@@ -81,8 +81,6 @@ async function createImage(todoId: string, imageId: string, event: APIGatewayPro
     return newItem as TodoItem
 
   } catch (error) {
-    // check for db error code and types
-    // log errors
     logger.warn('Failure', {error: error.message})
   }
 
