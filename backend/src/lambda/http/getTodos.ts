@@ -7,8 +7,11 @@ import { TodoItem } from '../../models/TodoItem'
 
 const logger = createLogger('Get Todos')
 
+/**
+ * get all users todos and return them to the client
+ */
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  const userId = getUserId(event)
+  const userId: string = getUserId(event)
   logger.info('Getting todos', { event, userId })
   
   try {

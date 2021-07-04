@@ -4,26 +4,28 @@ import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } f
 import { UpdateTodoRequest } from '../../requests/UpdateTodoRequest'
 import { createLogger } from '../../utils/logger'
 import { updateTodo } from '../../businessLogic/todo'
+import { TodoUpdate } from '../../models/TodoUpdate'
 
 const logger = createLogger('Update Todo')
 
+/**
+ * updates the todo and retuns an updated todo to the client
+ */
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  const todoId = event.pathParameters.todoId
-  const userId = getUserId(event)
-  const updatedTodo: UpdateTodoRequest = JSON.parse(event.body)
+  const todoId: string = event.pathParameters.todoId
+  const userId: string = getUserId(event)
+  const todoBody: UpdateTodoRequest = JSON.parse(event.body)
   
-  logger.info('Updating Todo', updatedTodo)
-
+  logger.info('Updating todo', { todoBody, userId, todoId })
   try {
-
-    const result = await updateTodo(updatedTodo, userId, todoId)
-    if (result) {
+    const todo: TodoUpdate = await updateTodo(todoBody, userId, todoId)
+    if (todo) {
       return {
         statusCode: 200,
         headers: {
           'Access-Control-Allow-Origin': '*'
         },
-        body: JSON.stringify(result)
+        body: JSON.stringify(todo)
       }
     }
     return {
@@ -34,6 +36,6 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
       body: ''
     }
   } catch (error) {
-    logger.warn('failure', { error: error.message})
+    logger.warn('Failed to update todo', { error: error.message})
   }
 }
