@@ -4,6 +4,8 @@ service:
 plugins:
   - serverless-webpack
   - serverless-iam-roles-per-function
+  - serverless-aws-documentation
+  - serverless-reqvalidator-plugin
 
 provider:
   name: aws
@@ -37,6 +39,22 @@ provider:
         - s3:GetObject
       Resource: arn:aws:s3:::${self:provider.environment.TODO_S3_BUCKET}/*
 
+custom:
+  topicName: imagesTopic-${self:provider.stage}
+  documentation:
+    api:
+      info:
+        version: v1.0.0
+        title: Serverless API
+        description: Serverless application for managing todos
+    models:
+      - name: CreateTodo
+        contentType: application/json
+        schema: ${file(models/create-todo-request.json)}
+      - name: UpdateTodo
+        contentType: application/json
+        schema: ${file(models/update-todo-request.json)}  
+
 functions:
   Auth:
     handler: src/lambda/auth/auth0Authorizer.handler         
@@ -48,6 +66,12 @@ functions:
           method: post
           path: todos
           cors: true
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Create a new todo
+            description: Create a new todo requires name and dueDate
+            requestModels:
+              'application/json': CreateTodo
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -74,6 +98,12 @@ functions:
           method: patch
           path: todos/{todoId}
           cors: true
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Update a new todo
+            description: Updates a todo requires name, dueDate, and done
+            requestModels:
+              'application/json': UpdateTodo          
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -113,6 +143,16 @@ functions:
 
 resources:
   Resources:
+    
+    RequestBodyValidator:
+      Type: AWS::ApiGateway::RequestValidator
+      Properties:
+        Name: 'request-body-validator'
+        RestApiId:
+          Ref: ApiGatewayRestApi
+        ValidateRequestBody: true
+        ValidateRequestParameters: false
+
     GatewayResponseDefault4XX:
       Type: AWS::ApiGateway::GatewayResponse
       Properties:
