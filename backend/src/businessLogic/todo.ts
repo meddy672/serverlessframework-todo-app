@@ -8,7 +8,7 @@ import { TodoAccess } from '../dataLayer/todoAccess'
 const todoAccess = new TodoAccess()
 
 /**
- * create and save a new data in the database
+ * create a new todo requires userId and CreateTodoRequst
  */
 export async function createTodo(newTodo: CreateTodoRequest, userId: string): Promise<TodoItem> {
     const timestamp: string = new Date().toISOString()
@@ -27,7 +27,7 @@ export async function createTodo(newTodo: CreateTodoRequest, userId: string): Pr
 
 
 /**
- * update a todo
+ * update a todo requires todoId, userId, UpdateTodoRequest
  */
 export async function updateTodo(todo: UpdateTodoRequest, userId: string, todoId: string): Promise<TodoUpdate> {
     return await todoAccess.updateTodo({
@@ -44,7 +44,7 @@ export async function updateTodo(todo: UpdateTodoRequest, userId: string, todoId
     
 
 /**
- * delete a todo
+ * delete a todo requires userId and todoId
  */
 export async function deleteTodo(userId: string, todoId: string): Promise<void> {
      await todoAccess.deleteTodo(userId, todoId)
@@ -54,7 +54,7 @@ export async function deleteTodo(userId: string, todoId: string): Promise<void> 
 
 
 /**
- * get all user todos
+ * get all user todos by userId
  */
 export async function getTodos(userId: string): Promise<TodoItem[]> {
     return await todoAccess.getTodos(userId)
@@ -64,7 +64,7 @@ export async function getTodos(userId: string): Promise<TodoItem[]> {
 
 
 /**
- * creates an url for a todo
+ * creates an url for a todo requires userId and stringId
  */
 export async function generateUploadUrl(userId: string, todoId: string): Promise<{url: string, todo: TodoItem}> {
     const imageId: string = uuid.v4().toString()

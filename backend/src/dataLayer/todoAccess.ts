@@ -37,7 +37,7 @@ export class TodoAccess {
 
 
     /**
-     * updates a todo by parition key and returns data for TodoUpdate
+     * updates a todo by composite key and returns data for TodoUpdate
      */
     async updateTodo(todo: TodoItem): Promise<TodoUpdate> {
         logger.info('Updating todo', todo)
@@ -53,14 +53,21 @@ export class TodoAccess {
             ExpressionAttributeNames: { "#name": "name" },
             ReturnValues: "UPDATED_NEW"
         }).promise()
-        return result as unknown as TodoUpdate
+
+        const todoUpdate = {
+            name: result.name,
+            dueDate: result.dueDate,
+            done: result.done
+        }
+
+        return todoUpdate as TodoUpdate
     }
 
 
 
 
     /**
-     * deletes a todo from the database by partition key
+     * deletes a todo from the database by composite key
      */
     async deleteTodo(userId: string, todoId: string): Promise<void> {
         logger.info('Deleting todo', { userId, todoId })
@@ -91,7 +98,7 @@ export class TodoAccess {
 
 
     /**
-     * get a todo from the database by partition key
+     * get a todo from the database by composite key
      */
     async getTodo(userId: string, todoId: string): Promise<TodoItem> {
         logger.info('Getting todo', { userId, todoId })
