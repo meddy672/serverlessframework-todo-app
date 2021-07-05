@@ -12,7 +12,17 @@ const logger = createLogger('Get Todos')
  */
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const userId: string = getUserId(event)
-  
+  if (!userId) {
+    return {
+      statusCode: 401,
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: JSON.stringify({
+        error: 'User is not authorized'
+      })
+    }
+  }
   logger.info('Getting todos', { event, userId })
   try {
     const todos: TodoItem[] = await getTodos(userId)

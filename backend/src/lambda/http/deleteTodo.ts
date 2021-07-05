@@ -12,7 +12,17 @@ const logger = createLogger('Delete Todo')
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const todoId: string = event.pathParameters.todoId
   const userId: string = getUserId(event)
-  
+  if (!userId) {
+    return {
+      statusCode: 401,
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: JSON.stringify({
+        error: 'User is not authorized'
+      })
+    }
+  }
   logger.info(`Deleting todo ${todoId}`)
   try {
     await deleteTodo(userId, todoId)

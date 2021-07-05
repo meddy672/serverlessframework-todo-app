@@ -15,6 +15,17 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   const todoId: string = event.pathParameters.todoId
   const userId: string = getUserId(event)
   const todoBody: UpdateTodoRequest = JSON.parse(event.body)
+  if (!userId) {
+    return {
+      statusCode: 401,
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: JSON.stringify({
+        error: 'User is not authorized'
+      })
+    }
+  }
   
   logger.info('Updating todo', { todoBody, userId, todoId })
   try {
