@@ -23,21 +23,6 @@ provider:
     TODO_S3_BUCKET: todo-image-bucket-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300 
     TODO_ID_INDEX: TodoIdIndex
-  
-  iamRoleStatments:
-    - Effect: Allow
-      Action:
-        - dynamodb:PutItem
-        - dynamodb:DeleteItem
-        - dynamodb:Query
-        - dynamodb:GetItem  
-        - dynamodb:UpdateItem
-      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODO_TABLE}
-    - Effect: Allow
-      Action:
-        - s3:PutObject
-        - s3:GetObject
-      Resource: arn:aws:s3:::${self:provider.environment.TODO_S3_BUCKET}/*
 
 custom:
   topicName: imagesTopic-${self:provider.stage}
