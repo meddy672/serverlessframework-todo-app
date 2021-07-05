@@ -5,6 +5,9 @@ import { TodoUpdate } from '../models/TodoUpdate'
 
 const logger = createLogger('todoAccess')
 
+/**
+ * Data object for managing todos
+ */
 export class TodoAccess {
 
     constructor(
@@ -19,14 +22,12 @@ export class TodoAccess {
 
 
     /**
-     * 
-     * @param todo 
-     * @returns 
+     * creates a new todo in the database
      */
     async createTodo(todo: TodoItem): Promise<TodoItem> {
         logger.info('Creating todo', todo)
         await this.docClient.put({ TableName: this.todosTable, Item: todo, }).promise();
-        return todo
+        return todo as TodoItem
     }
 
 
@@ -34,9 +35,7 @@ export class TodoAccess {
 
 
     /**
-     * 
-     * @param todo 
-     * @returns 
+     * updates a todo by parition key and returns data for TodoUpdate
      */
     async updateTodo(todo: TodoItem): Promise<TodoUpdate> {
         logger.info('Updating todo', todo)
@@ -59,11 +58,9 @@ export class TodoAccess {
 
 
     /**
-     * 
-     * @param userId 
-     * @param todoId 
+     * deletes a todo from the database by partition key
      */
-    async deleteTodo(userId: string, todoId: string): Promise<any> {
+    async deleteTodo(userId: string, todoId: string): Promise<void> {
         logger.info('Deleting todo', { userId, todoId })
         await this.docClient.delete({ TableName: this.todosTable, Key: { userId, todoId } }).promise()
     }
@@ -73,9 +70,7 @@ export class TodoAccess {
 
 
     /**
-     * 
-     * @param userId 
-     * @returns 
+     * gets all user todos by userId
      */
     async getTodos(userId: string): Promise<TodoItem[]> {
         logger.info('Getting todos', userId)
@@ -94,10 +89,7 @@ export class TodoAccess {
 
 
     /**
-     * 
-     * @param userId 
-     * @param todoId 
-     * @returns 
+     * get a todo from the database by partition key
      */
     async getTodo(userId: string, todoId: string): Promise<TodoItem> {
         logger.info('Getting todo', { userId, todoId })
@@ -116,9 +108,7 @@ export class TodoAccess {
 
 
     /**
-     * 
-     * @param imageId 
-     * @param todo 
+     * replaces an old todo with a todo with attachmentUrl
      */
     async todoAttachUrl(imageId: string, todo: TodoItem,): Promise<void> {
         logger.info('Attaching Url to Todo', todo)
@@ -135,9 +125,7 @@ export class TodoAccess {
 
 
     /**
-     * 
-     * @param imageId 
-     * @returns 
+     * generates presigned url and returns the url
      */
     async getUploadUrl(imageId: string): Promise<string> {
         logger.info('Getting upload url', imageId)

@@ -9,7 +9,7 @@ import { TodoUpdate } from '../../models/TodoUpdate'
 const logger = createLogger('Update Todo')
 
 /**
- * updates the todo and retuns an updated todo to the client
+ * updates the todo
  */
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const todoId: string = event.pathParameters.todoId

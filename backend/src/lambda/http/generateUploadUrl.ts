@@ -7,8 +7,7 @@ import { generateUploadUrl } from '../../businessLogic/todo'
 const logger = createLogger('GenerateUrl')
 
 /**
- * uploads image to s3, updates the todo with attachmentUrl, 
- * and returns new todo with url to the client
+ * add an attachmentUrl to a todo
  */
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const todoId: string = event.pathParameters.todoId

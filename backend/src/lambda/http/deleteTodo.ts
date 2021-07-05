@@ -7,11 +7,12 @@ import { deleteTodo } from '../../businessLogic/todo'
 const logger = createLogger('Delete Todo')
 
 /**
- * deletes a todo by it's key value
+ * deletes a todo by it's partition key value
  */
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const todoId: string = event.pathParameters.todoId
   const userId: string = getUserId(event)
+  
   logger.info(`Deleting todo ${todoId}`)
   try {
     await deleteTodo(userId, todoId)

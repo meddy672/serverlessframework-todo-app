@@ -25,7 +25,7 @@ export async function createTodo(
       'Authorization': `Bearer ${idToken}`
     }
   })
-  return response.data.item
+  return response.data.todo
 }
 
 export async function patchTodo(
