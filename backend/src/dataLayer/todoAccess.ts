@@ -13,7 +13,7 @@ const logger = createLogger('todoAccess')
 export class TodoAccess {
 
     constructor(
-        private readonly docClient = new XAWS.DynamoDB.DocumentClient(),
+        private readonly docClient =  createDynamoDBClient(),
         private readonly todosTable = process.env.TODO_TABLE,
         private readonly s3 = new XAWS.S3({ signatureVersion: 'v4' }),
         private readonly bucketName = process.env.TODO_S3_BUCKET,
@@ -144,4 +144,19 @@ export class TodoAccess {
             Expires: parseInt(this.urlExpiration, 10)
         })
     }
+}
+
+/**
+ *  checks to see if the env IS_OFFLINE is set and will use local DB
+ */
+function createDynamoDBClient() {
+    if (process.env.IS_OFFLINE) {
+        console.log('Creating a local DynamoDB instance')
+        return new XAWS.DynamoDB.DocumentClient({
+            region: 'localhost',
+            endpoint: 'http://localhost:8000'
+        })
+    }
+
+    return new XAWS.DynamoDB.DocumentClient()
 }
