@@ -6,6 +6,8 @@ plugins:
   - serverless-iam-roles-per-function
   - serverless-aws-documentation
   - serverless-reqvalidator-plugin
+  - serverless-dynamodb-local
+  - serverless-offline
 
 provider:
   name: aws
@@ -26,6 +28,19 @@ provider:
 
 custom:
   topicName: imagesTopic-${self:provider.stage}
+
+  serverless-offline:
+    port: 3003
+
+    dynamodb:
+      start:
+        port: 8000
+        inmemory: true
+        migrate: true
+      stages:
+        - dev
+
+
   documentation:
     api:
       info:
