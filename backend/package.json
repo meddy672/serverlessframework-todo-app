@@ -15,7 +15,7 @@
     "winston": "^3.2.1"
   },
   "scripts": {
-    "test": "jasmine-ts spec/**/*.spec.ts"
+    "test": "nyc jasmine-ts spec/**/*.spec.ts"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.17",
@@ -28,6 +28,7 @@
     "jasmine": "^3.8.0",
     "jasmine-spec-reporter": "^7.0.0",
     "jasmine-ts": "^0.4.0",
+    "nyc": "^15.1.0",
     "serverless-aws-documentation": "^1.1.0",
     "serverless-dynamodb-local": "^0.2.24",
     "serverless-iam-roles-per-function": "^3.2.0",
