@@ -1,8 +1,8 @@
 import * as uuid from 'uuid'
-import { CreateTodoRequest } from '../requests/CreateTodoRequest'
+import { CreateTodoRequest } from '../interface/CreateTodoRequest'
 import { UpdateTodoRequest } from '../interface/UpdateTodoRequest'
 import { TodoItem } from '../interface/TodoItem'
-import { TodoUpdate } from '../models/TodoUpdate'
+import { TodoUpdate } from '../interface/TodoUpdate'
 import { TodoAccess } from '../dataLayer/todoAccess'
 
 const todoAccess = new TodoAccess()
