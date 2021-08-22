@@ -1,6 +1,6 @@
 import * as AWS from 'aws-sdk'
 import { createLogger } from '../utils/logger'
-import { TodoItem } from '../models/TodoItem'
+import { TodoItem } from '../interface/TodoItem'
 import { TodoUpdate } from '../models/TodoUpdate'
 const AWSXRay = require('aws-xray-sdk');
 

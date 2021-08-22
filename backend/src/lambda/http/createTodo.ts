@@ -2,9 +2,9 @@ import 'source-map-support/register'
 import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } from 'aws-lambda'
 import { getUserId } from '../utils'
 import { createLogger } from '../../utils/logger'
-import { CreateTodoRequest } from '../../requests/CreateTodoRequest'
+import { CreateTodoRequest } from '../../interface/CreateTodoRequest'
 import { createTodo } from '../../businessLogic/todo'
-import { TodoItem } from '../../models/TodoItem'
+import { TodoItem } from '../../interface/TodoItem'
 const logger = createLogger('Create Todo')
 
 /**

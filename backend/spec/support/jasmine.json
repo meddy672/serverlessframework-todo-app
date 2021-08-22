@@ -1,11 +1,15 @@
 {
   "spec_dir": "spec",
   "spec_files": [
-    "**/*[sS]pec.js"
+    "**/*[sS]pec.ts",
+    "**/*[sS]pec.js",
+    "test/*[sS]pec.ts",
+    "test/*[sS]pec.js"
   ],
   "helpers": [
-    "helpers/**/*.js"
+    "helpers/**/*.ts",
+    "../../node_modules/@babel/register/lib/node.js"
   ],
   "stopSpecOnExpectationFailure": false,
-  "random": true
+  "random": false
 }

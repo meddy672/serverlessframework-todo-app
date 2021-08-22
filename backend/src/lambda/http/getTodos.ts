@@ -3,7 +3,8 @@ import { getUserId } from '../utils'
 import { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } from 'aws-lambda'
 import { getTodos } from '../../businessLogic/todo'
 import { createLogger } from '../../utils/logger'
-import { TodoItem } from '../../models/TodoItem'
+import { TodoItem } from '../../interface/TodoItem'
+
 
 const logger = createLogger('Get Todos')
 
@@ -11,6 +12,7 @@ const logger = createLogger('Get Todos')
  * get all users todos
  */
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+  logger.info(event)
   const userId: string = getUserId(event)
   if (!userId) {
     return {

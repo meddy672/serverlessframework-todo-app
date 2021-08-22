@@ -1,0 +1,153 @@
+{
+    "message": {
+        "resource": "/todos",
+        "path": "/todos",
+        "httpMethod": "GET",
+        "headers": {
+            "Accept": "application/json, text/plain, */*",
+            "Accept-Encoding": "gzip, deflate, br",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2Rldi1wZC1oYjZzNS51cy5hdXRoMC5jb20vIiwic3ViIjoiZ29vZ2xlLW9hdXRoMnwxMDE4NTk4MTg1MjgzODEwNDA0NjkiLCJhdWQiOiJEOEZ3TkxvS093NG1tVVBxdlVaTXk1QWFqeTFWcGowUyIsImlhdCI6MTYyNzg1MTg2OSwiZXhwIjoxNjI3ODg3ODY5LCJhdF9oYXNoIjoiUGpEWXozZG1rRi1XVmR3N292ZkNmQSIsIm5vbmNlIjoiUjlKUVZ3eVQwQ20zcXVGVGF5MUlSR09vYjR2QWU3eloifQ.NpifQBKXeY9YzEXhVLjdGv9BfJ7I6xrutAgTaNTghR8",
+            "CloudFront-Forwarded-Proto": "https",
+            "CloudFront-Is-Desktop-Viewer": "true",
+            "CloudFront-Is-Mobile-Viewer": "false",
+            "CloudFront-Is-SmartTV-Viewer": "false",
+            "CloudFront-Is-Tablet-Viewer": "false",
+            "CloudFront-Viewer-Country": "US",
+            "dnt": "1",
+            "Host": "uf8u9nudxe.execute-api.us-east-1.amazonaws.com",
+            "origin": "http://localhost:3000",
+            "Referer": "http://localhost:3000/",
+            "sec-ch-ua": "\"Chromium\";v=\"92\", \" Not A;Brand\";v=\"99\", \"Google Chrome\";v=\"92\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "cross-site",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36",
+            "Via": "2.0 aa0fa064079716ae61c0ecfc2ec8da67.cloudfront.net (CloudFront)",
+            "X-Amz-Cf-Id": "1ccgG_UEi_hnaIju-iWF3NIw71Xg2GXBeLroCke0nV9L9usqF-5EQw==",
+            "X-Amzn-Trace-Id": "Root=1-61070c5f-2ae29728734701bd6e2b0d4e",
+            "X-Forwarded-For": "70.225.7.84, 130.176.66.142",
+            "X-Forwarded-Port": "443",
+            "X-Forwarded-Proto": "https"
+        },
+        "multiValueHeaders": {
+            "Accept": [
+                "application/json, text/plain, */*"
+            ],
+            "Accept-Encoding": [
+                "gzip, deflate, br"
+            ],
+            "Accept-Language": [
+                "en-US,en;q=0.9"
+            ],
+            "Authorization": [
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2Rldi1wZC1oYjZzNS51cy5hdXRoMC5jb20vIiwic3ViIjoiZ29vZ2xlLW9hdXRoMnwxMDE4NTk4MTg1MjgzODEwNDA0NjkiLCJhdWQiOiJEOEZ3TkxvS093NG1tVVBxdlVaTXk1QWFqeTFWcGowUyIsImlhdCI6MTYyNzg1MTg2OSwiZXhwIjoxNjI3ODg3ODY5LCJhdF9oYXNoIjoiUGpEWXozZG1rRi1XVmR3N292ZkNmQSIsIm5vbmNlIjoiUjlKUVZ3eVQwQ20zcXVGVGF5MUlSR09vYjR2QWU3eloifQ.NpifQBKXeY9YzEXhVLjdGv9BfJ7I6xrutAgTaNTghR8"
+            ],
+            "CloudFront-Forwarded-Proto": [
+                "https"
+            ],
+            "CloudFront-Is-Desktop-Viewer": [
+                "true"
+            ],
+            "CloudFront-Is-Mobile-Viewer": [
+                "false"
+            ],
+            "CloudFront-Is-SmartTV-Viewer": [
+                "false"
+            ],
+            "CloudFront-Is-Tablet-Viewer": [
+                "false"
+            ],
+            "CloudFront-Viewer-Country": [
+                "US"
+            ],
+            "dnt": [
+                "1"
+            ],
+            "Host": [
+                "uf8u9nudxe.execute-api.us-east-1.amazonaws.com"
+            ],
+            "origin": [
+                "http://localhost:3000"
+            ],
+            "Referer": [
+                "http://localhost:3000/"
+            ],
+            "sec-ch-ua": [
+                "\"Chromium\";v=\"92\", \" Not A;Brand\";v=\"99\", \"Google Chrome\";v=\"92\""
+            ],
+            "sec-ch-ua-mobile": [
+                "?0"
+            ],
+            "sec-fetch-dest": [
+                "empty"
+            ],
+            "sec-fetch-mode": [
+                "cors"
+            ],
+            "sec-fetch-site": [
+                "cross-site"
+            ],
+            "User-Agent": [
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36"
+            ],
+            "Via": [
+                "2.0 aa0fa064079716ae61c0ecfc2ec8da67.cloudfront.net (CloudFront)"
+            ],
+            "X-Amz-Cf-Id": [
+                "1ccgG_UEi_hnaIju-iWF3NIw71Xg2GXBeLroCke0nV9L9usqF-5EQw=="
+            ],
+            "X-Amzn-Trace-Id": [
+                "Root=1-61070c5f-2ae29728734701bd6e2b0d4e"
+            ],
+            "X-Forwarded-For": [
+                "70.225.7.84, 130.176.66.142"
+            ],
+            "X-Forwarded-Port": [
+                "443"
+            ],
+            "X-Forwarded-Proto": [
+                "https"
+            ]
+        },
+        "queryStringParameters": null,
+        "multiValueQueryStringParameters": null,
+        "pathParameters": null,
+        "stageVariables": null,
+        "requestContext": {
+            "resourceId": "z7jpir",
+            "resourcePath": "/todos",
+            "httpMethod": "GET",
+            "extendedRequestId": "DZ7e4HT-oAMFoSQ=",
+            "requestTime": "01/Aug/2021:21:04:31 +0000",
+            "path": "/dev/todos",
+            "accountId": "242634500443",
+            "protocol": "HTTP/1.1",
+            "stage": "dev",
+            "domainPrefix": "uf8u9nudxe",
+            "requestTimeEpoch": 1627851871040,
+            "requestId": "0db052cf-1623-4a53-92c7-2cbcf7f3c1cb",
+            "identity": {
+                "cognitoIdentityPoolId": null,
+                "accountId": null,
+                "cognitoIdentityId": null,
+                "caller": null,
+                "sourceIp": "70.225.7.84",
+                "principalOrgId": null,
+                "accessKey": null,
+                "cognitoAuthenticationType": null,
+                "cognitoAuthenticationProvider": null,
+                "userArn": null,
+                "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36",
+                "user": null
+            },
+            "domainName": "uf8u9nudxe.execute-api.us-east-1.amazonaws.com",
+            "apiId": "uf8u9nudxe"
+        },
+        "body": null,
+        "isBase64Encoded": false
+    },
+    "level": "info",
+    "name": "Get Todos"
+}
