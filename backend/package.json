@@ -1,7 +1,7 @@
 {
   "name": "serverless-todo-app",
   "version": "1.0.0",
-  "description": "Serverless TODO image app",
+  "description": "Serverless TODO",
   "dependencies": {
     "@types/axios": "^0.14.0",
     "@types/http-errors": "^1.6.1",
@@ -10,19 +10,23 @@
     "jsonwebtoken": "^8.5.1",
     "middy": "^0.27.0",
     "serverless-offline": "^8.0.0",
-    "source-map-support": "^0.5.11",
     "uuid": "^3.3.2",
     "winston": "^3.2.1"
   },
   "scripts": {
+    "build": "tsc",
+    "clear": "rm -rf dist/ coverage/ .nyc_output/",
+    "clear:all": "rm -rf node_modules/ npm-debug.log && npm run clear",
     "test": "nyc jasmine-ts spec/**/*.spec.ts"
   },
   "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@types/aws-lambda": "^8.10.17",
     "@types/jasmine": "^3.8.2",
     "@types/jsonwebtoken": "^8.3.2",
     "@types/node": "^10.14.4",
     "aws-sdk": "^2.433.0",
+    "aws-sdk-mock": "^5.2.2",
     "aws-xray-sdk": "^2.5.0",
     "babel": "^6.23.0",
     "jasmine": "^3.8.0",
@@ -35,8 +39,9 @@
     "serverless-plugin-canary-deployments": "^0.4.7",
     "serverless-reqvalidator-plugin": "^1.0.4",
     "serverless-webpack": "^5.2.0",
+    "source-map-support": "^0.5.19",
     "ts-loader": "^5.3.3",
-    "ts-node": "^10.1.0",
+    "ts-node": "^10.2.1",
     "typescript": "^3.9.10",
     "webpack": "^4.29.6"
   },

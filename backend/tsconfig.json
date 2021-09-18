@@ -1,14 +1,22 @@
 {
   "compilerOptions": {
+    "allowJs": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
     "lib": [
       "es6"
     ],
+    "types": ["node", "jasmine"],
     "moduleResolution": "node",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "sourceMap": true,
     "target": "es6",
-    "outDir": "lib"
+    "outDir": "dist"
+  },
+  "ts-node": {
+    "transpileOnly": true,
+    "files": true,
   },
   "exclude": [
     "node_modules"
