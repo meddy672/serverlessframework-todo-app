@@ -15,6 +15,9 @@
   },
   "scripts": {
     "build": "tsc",
+    "watch": "tsc -w",
+    "clean": "tsc --clean",
+    "lint": "eslint src/**/*.ts",
     "clear": "rm -rf dist/ coverage/ .nyc_output/",
     "clear:all": "rm -rf node_modules/ npm-debug.log && npm run clear",
     "test": "nyc jasmine-ts spec/**/*.spec.ts"
@@ -25,10 +28,13 @@
     "@types/jasmine": "^3.8.2",
     "@types/jsonwebtoken": "^8.3.2",
     "@types/node": "^10.14.4",
+    "@typescript-eslint/eslint-plugin": "^4.28.1",
+    "@typescript-eslint/parser": "^4.28.1",
     "aws-sdk": "^2.433.0",
     "aws-sdk-mock": "^5.2.2",
     "aws-xray-sdk": "^2.5.0",
     "babel": "^6.23.0",
+    "eslint": "^7.30.0",
     "jasmine": "^3.8.0",
     "jasmine-spec-reporter": "^7.0.0",
     "jasmine-ts": "^0.4.0",

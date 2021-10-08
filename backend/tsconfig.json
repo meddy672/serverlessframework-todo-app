@@ -2,7 +2,9 @@
   "compilerOptions": {
     "allowJs": true,
     "declaration": true,
-    "emitDeclarationOnly": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": false,
+    "sourceMap":true,
     "lib": [
       "es6"
     ],
@@ -10,7 +12,6 @@
     "moduleResolution": "node",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "sourceMap": true,
     "target": "es6",
     "outDir": "dist"
   },
@@ -20,5 +21,6 @@
   },
   "exclude": [
     "node_modules"
-  ]
+  ],
+  "include": ["src/**/*"],
 }
