@@ -1,0 +1,1 @@
+{"version":3,"file":"generateUploadUrl.d.ts","sourceRoot":"","sources":["../../../src/lambda/http/generateUploadUrl.ts"],"names":[],"mappings":"AAAA,OAAO,6BAA6B,CAAA;AACpC,OAAO,EAA+C,sBAAsB,EAAE,MAAM,YAAY,CAAA;AAOhG;;GAEG;AACH,eAAO,MAAM,OAAO,EAAE,sBA8BrB,CAAA"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"auth0Authorizer.d.ts","sourceRoot":"","sources":["../../../src/lambda/auth/auth0Authorizer.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,qBAAqB,EAAE,sBAAsB,EAAE,MAAM,YAAY,CAAA;AAC1E,OAAO,6BAA6B,CAAA;AAYpC,eAAO,MAAM,OAAO,UAAiB,qBAAqB,KAAG,OAAO,CAAC,sBAAsB,CAoC1F,CAAA"}

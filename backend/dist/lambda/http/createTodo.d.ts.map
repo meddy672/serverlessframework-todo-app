@@ -1,0 +1,1 @@
+{"version":3,"file":"createTodo.d.ts","sourceRoot":"","sources":["../../../src/lambda/http/createTodo.ts"],"names":[],"mappings":"AAAA,OAAO,6BAA6B,CAAA;AACpC,OAAO,EAAwB,sBAAsB,EAAyB,MAAM,YAAY,CAAA;AAQhG;;GAEG;AACH,eAAO,MAAM,OAAO,EAAE,sBA2BrB,CAAA"}

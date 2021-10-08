@@ -1,0 +1,1 @@
+{"version":3,"file":"UpdateTodoRequest.d.ts","sourceRoot":"","sources":["../../src/interface/UpdateTodoRequest.ts"],"names":[],"mappings":"AAAA;;GAEG;AACH,MAAM,WAAW,iBAAiB;IAChC,IAAI,EAAE,MAAM,CAAA;IACZ,OAAO,EAAE,MAAM,CAAA;IACf,IAAI,EAAE,OAAO,CAAA;CACd"}
