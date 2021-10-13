@@ -1,0 +1,171 @@
+<!DOCTYPE html><html class="default no-js"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>serverless-todo-app</title><meta name="description" content="Documentation for serverless-todo-app"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><header><div class="tsd-page-toolbar"><div class="container"><div class="table-wrap"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption">Search</label><input type="text" id="tsd-search-field"/></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">serverless-todo-app</a></div><div class="table-cell" id="tsd-widgets"><div id="tsd-filter"><a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a><div class="tsd-filter-group"><div class="tsd-select" id="tsd-filter-visibility"><span class="tsd-select-label">All</span><ul class="tsd-select-list"><li data-value="public">Public</li><li data-value="protected">Public/Protected</li><li data-value="private" class="selected">All</li></ul></div> <input type="checkbox" id="tsd-filter-inherited" checked/><label class="tsd-widget" for="tsd-filter-inherited">Inherited</label><input type="checkbox" id="tsd-filter-externals" checked/><label class="tsd-widget" for="tsd-filter-externals">Externals</label></div></div><a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a></div></div></div></div><div class="tsd-page-title"><div class="container"><h1> serverless-todo-app</h1></div></div></header><div class="container container-main"><div class="row"><div class="col-8 col-content"><div class="tsd-panel tsd-typography">
+<a href="#serverless-todo" id="serverless-todo" style="color: inherit; text-decoration: none;">
+  <h1>Serverless TODO</h1>
+</a>
+<p>To implement this project, you need to implement a simple TODO application using AWS Lambda and Serverless framework. Search for all comments starting with the <code>TODO:</code> in the code to find the placeholders that you need to implement.</p>
+
+<a href="#functionality-of-the-application" id="functionality-of-the-application" style="color: inherit; text-decoration: none;">
+  <h1>Functionality of the application</h1>
+</a>
+<p>This application will allow creating/removing/updating/fetching TODO items. Each TODO item can optionally have an attachment image. Each user only has access to TODO items that he/she has created.</p>
+
+<a href="#todo-items" id="todo-items" style="color: inherit; text-decoration: none;">
+  <h1>TODO items</h1>
+</a>
+<p>The application should store TODO items, and each TODO item contains the following fields:</p>
+<ul>
+<li><code>todoId</code> (string) - a unique id for an item</li>
+<li><code>createdAt</code> (string) - date and time when an item was created</li>
+<li><code>name</code> (string) - name of a TODO item (e.g. &quot;Change a light bulb&quot;)</li>
+<li><code>dueDate</code> (string) - date and time by which an item should be completed</li>
+<li><code>done</code> (boolean) - true if an item was completed, false otherwise</li>
+<li><code>attachmentUrl</code> (string) (optional) - a URL pointing to an image attached to a TODO item</li>
+</ul>
+<p>You might also store an id of a user who created a TODO item.</p>
+
+<a href="#functions-to-be-implemented" id="functions-to-be-implemented" style="color: inherit; text-decoration: none;">
+  <h1>Functions to be implemented</h1>
+</a>
+<p>To implement this project, you need to implement the following functions and configure them in the <code>serverless.yml</code> file:</p>
+<ul>
+<li><p><code>Auth</code> - this function should implement a custom authorizer for API Gateway that should be added to all other functions.</p>
+</li>
+<li><p><code>GetTodos</code> - should return all TODOs for a current user. A user id can be extracted from a JWT token that is sent by the frontend</p>
+</li>
+</ul>
+<p>It should return data that looks like this:</p>
+<pre><code class="language-json"><span class="hl-0">{</span><br/><span class="hl-0">  </span><span class="hl-1">&quot;items&quot;</span><span class="hl-0">: [</span><br/><span class="hl-0">    {</span><br/><span class="hl-0">      </span><span class="hl-1">&quot;todoId&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;123&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">      </span><span class="hl-1">&quot;createdAt&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;2019-07-27T20:01:45.424Z&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">      </span><span class="hl-1">&quot;name&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;Buy milk&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">      </span><span class="hl-1">&quot;dueDate&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;2019-07-29T20:01:45.424Z&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">      </span><span class="hl-1">&quot;done&quot;</span><span class="hl-0">: </span><span class="hl-3">false</span><span class="hl-0">,</span><br/><span class="hl-0">      </span><span class="hl-1">&quot;attachmentUrl&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;http://example.com/image.png&quot;</span><br/><span class="hl-0">    },</span><br/><span class="hl-0">    {</span><br/><span class="hl-0">      </span><span class="hl-1">&quot;todoId&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;456&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">      </span><span class="hl-1">&quot;createdAt&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;2019-07-27T20:01:45.424Z&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">      </span><span class="hl-1">&quot;name&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;Send a letter&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">      </span><span class="hl-1">&quot;dueDate&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;2019-07-29T20:01:45.424Z&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">      </span><span class="hl-1">&quot;done&quot;</span><span class="hl-0">: </span><span class="hl-3">true</span><span class="hl-0">,</span><br/><span class="hl-0">      </span><span class="hl-1">&quot;attachmentUrl&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;http://example.com/image.png&quot;</span><br/><span class="hl-0">    },</span><br/><span class="hl-0">  ]</span><br/><span class="hl-0">}</span>
+</code></pre>
+<ul>
+<li><code>CreateTodo</code> - should create a new TODO for a current user. A shape of data send by a client application to this function can be found in the <code>CreateTodoRequest.ts</code> file</li>
+</ul>
+<p>It receives a new TODO item to be created in JSON format that looks like this:</p>
+<pre><code class="language-json"><span class="hl-0">{</span><br/><span class="hl-0">  </span><span class="hl-1">&quot;createdAt&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;2019-07-27T20:01:45.424Z&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-1">&quot;name&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;Buy milk&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-1">&quot;dueDate&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;2019-07-29T20:01:45.424Z&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-1">&quot;done&quot;</span><span class="hl-0">: </span><span class="hl-3">false</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-1">&quot;attachmentUrl&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;http://example.com/image.png&quot;</span><br/><span class="hl-0">}</span>
+</code></pre>
+<p>It should return a new TODO item that looks like this:</p>
+<pre><code class="language-json"><span class="hl-0">{</span><br/><span class="hl-0">  </span><span class="hl-1">&quot;item&quot;</span><span class="hl-0">: {</span><br/><span class="hl-0">    </span><span class="hl-1">&quot;todoId&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;123&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-1">&quot;createdAt&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;2019-07-27T20:01:45.424Z&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-1">&quot;name&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;Buy milk&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-1">&quot;dueDate&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;2019-07-29T20:01:45.424Z&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-1">&quot;done&quot;</span><span class="hl-0">: </span><span class="hl-3">false</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-1">&quot;attachmentUrl&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;http://example.com/image.png&quot;</span><br/><span class="hl-0">  }</span><br/><span class="hl-0">}</span>
+</code></pre>
+<ul>
+<li><code>UpdateTodo</code> - should update a TODO item created by a current user. A shape of data send by a client application to this function can be found in the <code>UpdateTodoRequest.ts</code> file</li>
+</ul>
+<p>It receives an object that contains three fields that can be updated in a TODO item:</p>
+<pre><code class="language-json"><span class="hl-0">{</span><br/><span class="hl-0">  </span><span class="hl-1">&quot;name&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;Buy bread&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-1">&quot;dueDate&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;2019-07-29T20:01:45.424Z&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-1">&quot;done&quot;</span><span class="hl-0">: </span><span class="hl-3">true</span><br/><span class="hl-0">}</span>
+</code></pre>
+<p>The id of an item that should be updated is passed as a URL parameter.</p>
+<p>It should return an empty body.</p>
+<ul>
+<li><code>DeleteTodo</code> - should delete a TODO item created by a current user. Expects an id of a TODO item to remove.</li>
+</ul>
+<p>It should return an empty body.</p>
+<ul>
+<li><code>GenerateUploadUrl</code> - returns a pre-signed URL that can be used to upload an attachment file for a TODO item.</li>
+</ul>
+<p>It should return a JSON object that looks like this:</p>
+<pre><code class="language-json"><span class="hl-0">{</span><br/><span class="hl-0">  </span><span class="hl-1">&quot;uploadUrl&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;https://s3-bucket-name.s3.eu-west-2.amazonaws.com/image.png&quot;</span><br/><span class="hl-0">}</span>
+</code></pre>
+<p>All functions are already connected to appropriate events from API Gateway.</p>
+<p>An id of a user can be extracted from a JWT token passed by a client.</p>
+<p>You also need to add any necessary resources to the <code>resources</code> section of the <code>serverless.yml</code> file such as DynamoDB table and S3 bucket.</p>
+
+<a href="#frontend" id="frontend" style="color: inherit; text-decoration: none;">
+  <h1>Frontend</h1>
+</a>
+<p>The <code>client</code> folder contains a web application that can use the API that should be developed in the project.</p>
+<p>This frontend should work with your serverless application once it is developed, you don&#39;t need to make any changes to the code. The only file that you need to edit is the <code>config.ts</code> file in the <code>client</code> folder. This file configures your client application just as it was done in the course and contains an API endpoint and Auth0 configuration:</p>
+<pre><code class="language-ts"><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-4">apiId</span><span class="hl-0"> = </span><span class="hl-2">&#39;...&#39;</span><span class="hl-0"> </span><span class="hl-4">API</span><span class="hl-0"> </span><span class="hl-5">Gateway</span><span class="hl-0"> </span><span class="hl-5">id</span><br/><span class="hl-6">export</span><span class="hl-0"> </span><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-4">apiEndpoint</span><span class="hl-0"> = </span><span class="hl-2">`https://</span><span class="hl-3">${</span><span class="hl-5">apiId</span><span class="hl-3">}</span><span class="hl-2">.execute-api.us-east-1.amazonaws.com/dev`</span><br/><br/><span class="hl-6">export</span><span class="hl-0"> </span><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-4">authConfig</span><span class="hl-0"> = {</span><br/><span class="hl-0">  </span><span class="hl-5">domain:</span><span class="hl-0"> </span><span class="hl-2">&#39;...&#39;</span><span class="hl-0">,    </span><span class="hl-7">// Domain from Auth0</span><br/><span class="hl-0">  </span><span class="hl-5">clientId:</span><span class="hl-0"> </span><span class="hl-2">&#39;...&#39;</span><span class="hl-0">,  </span><span class="hl-7">// Client id from an Auth0 application</span><br/><span class="hl-0">  </span><span class="hl-5">callbackUrl:</span><span class="hl-0"> </span><span class="hl-2">&#39;http://localhost:3000/callback&#39;</span><br/><span class="hl-0">}</span>
+</code></pre>
+
+<a href="#authentication" id="authentication" style="color: inherit; text-decoration: none;">
+  <h2>Authentication</h2>
+</a>
+<p>To implement authentication in your application, you would have to create an Auth0 application and copy &quot;domain&quot; and &quot;client id&quot; to the <code>config.ts</code> file in the <code>client</code> folder. We recommend using asymmetrically encrypted JWT tokens.</p>
+
+<a href="#best-practices" id="best-practices" style="color: inherit; text-decoration: none;">
+  <h1>Best practices</h1>
+</a>
+<p>To complete this exercise, please follow the best practices from the 6th lesson of this course.</p>
+
+<a href="#logging" id="logging" style="color: inherit; text-decoration: none;">
+  <h2>Logging</h2>
+</a>
+<p>The starter code comes with a configured <a href="https://github.com/winstonjs/winston">Winston</a> logger that creates <a href="https://stackify.com/what-is-structured-logging-and-why-developers-need-it/">JSON formatted</a> log statements. You can use it to write log messages like this:</p>
+<pre><code class="language-ts"><span class="hl-6">import</span><span class="hl-0"> { </span><span class="hl-5">createLogger</span><span class="hl-0"> } </span><span class="hl-6">from</span><span class="hl-0"> </span><span class="hl-2">&#39;../../utils/logger&#39;</span><br/><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-4">logger</span><span class="hl-0"> = </span><span class="hl-8">createLogger</span><span class="hl-0">(</span><span class="hl-2">&#39;auth&#39;</span><span class="hl-0">)</span><br/><br/><span class="hl-7">// You can provide additional information with every log statement</span><br/><span class="hl-7">// This information can then be used to search for log statements in a log storage system</span><br/><span class="hl-5">logger</span><span class="hl-0">.</span><span class="hl-8">info</span><span class="hl-0">(</span><span class="hl-2">&#39;User was authorized&#39;</span><span class="hl-0">, {</span><br/><span class="hl-0">  </span><span class="hl-7">// Additional information stored with a log statement</span><br/><span class="hl-0">  </span><span class="hl-5">key:</span><span class="hl-0"> </span><span class="hl-2">&#39;value&#39;</span><br/><span class="hl-0">})</span>
+</code></pre>
+
+<a href="#grading-the-submission" id="grading-the-submission" style="color: inherit; text-decoration: none;">
+  <h1>Grading the submission</h1>
+</a>
+<p>Once you have finished developing your application, please set <code>apiId</code> and Auth0 parameters in the <code>config.ts</code> file in the <code>client</code> folder. A reviewer would start the React development server to run the frontend that should be configured to interact with your serverless application.</p>
+<p><strong>IMPORTANT</strong></p>
+<p><em>Please leave your application running until a submission is reviewed. If implemented correctly it will cost almost nothing when your application is idle.</em></p>
+
+<a href="#suggestions" id="suggestions" style="color: inherit; text-decoration: none;">
+  <h1>Suggestions</h1>
+</a>
+<p>To store TODO items, you might want to use a DynamoDB table with local secondary index(es). A create a local secondary index you need to create a DynamoDB resource like this:</p>
+<pre><code class="language-yml">
+TodosTable:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    AttributeDefinitions:
+      - AttributeName: partitionKey
+        AttributeType: S
+      - AttributeName: sortKey
+        AttributeType: S
+      - AttributeName: indexKey
+        AttributeType: S
+    KeySchema:
+      - AttributeName: partitionKey
+        KeyType: HASH
+      - AttributeName: sortKey
+        KeyType: RANGE
+    BillingMode: PAY_PER_REQUEST
+    TableName: ${self:provider.environment.TODOS_TABLE}
+    LocalSecondaryIndexes:
+      - IndexName: ${self:provider.environment.INDEX_NAME}
+        KeySchema:
+          - AttributeName: partitionKey
+            KeyType: HASH
+          - AttributeName: indexKey
+            KeyType: RANGE
+        Projection:
+          ProjectionType: ALL # What attributes will be copied to an index
+</code></pre>
+<p>To query an index you need to use the <code>query()</code> method like:</p>
+<pre><code class="language-ts"><span class="hl-6">await</span><span class="hl-0"> </span><span class="hl-3">this</span><span class="hl-0">.</span><span class="hl-5">dynamoDBClient</span><br/><span class="hl-0">  .</span><span class="hl-8">query</span><span class="hl-0">({</span><br/><span class="hl-0">    </span><span class="hl-5">TableName:</span><span class="hl-0"> </span><span class="hl-2">&#39;table-name&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-5">IndexName:</span><span class="hl-0"> </span><span class="hl-2">&#39;index-name&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-5">KeyConditionExpression:</span><span class="hl-0"> </span><span class="hl-2">&#39;paritionKey = :paritionKey&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-5">ExpressionAttributeValues:</span><span class="hl-0"> {</span><br/><span class="hl-0">      </span><span class="hl-2">&#39;:paritionKey&#39;</span><span class="hl-5">:</span><span class="hl-0"> </span><span class="hl-5">partitionKeyValue</span><br/><span class="hl-0">    }</span><br/><span class="hl-0">  })</span><br/><span class="hl-0">  .</span><span class="hl-8">promise</span><span class="hl-0">()</span>
+</code></pre>
+
+<a href="#how-to-run-the-application" id="how-to-run-the-application" style="color: inherit; text-decoration: none;">
+  <h1>How to run the application</h1>
+</a>
+
+<a href="#backend" id="backend" style="color: inherit; text-decoration: none;">
+  <h2>Backend</h2>
+</a>
+<p>To deploy an application run the following commands:</p>
+<pre><code><span class="hl-5">cd</span><span class="hl-0"> </span><span class="hl-5">backend</span><br/><span class="hl-5">npm</span><span class="hl-0"> </span><span class="hl-5">install</span><br/><span class="hl-5">sls</span><span class="hl-0"> </span><span class="hl-5">deploy</span><span class="hl-0"> -</span><span class="hl-5">v</span>
+</code></pre>
+
+<a href="#frontend-1" id="frontend-1" style="color: inherit; text-decoration: none;">
+  <h2>Frontend</h2>
+</a>
+<p>To run a client application first edit the <code>client/src/config.ts</code> file to set correct parameters. And then run the following commands:</p>
+<pre><code><span class="hl-5">cd</span><span class="hl-0"> </span><span class="hl-5">client</span><br/><span class="hl-5">npm</span><span class="hl-0"> </span><span class="hl-5">install</span><br/><span class="hl-5">npm</span><span class="hl-0"> </span><span class="hl-5">run</span><span class="hl-0"> </span><span class="hl-5">start</span>
+</code></pre>
+<p>This should start a development server with the React application that will interact with the serverless TODO application.</p>
+
+<a href="#postman-collection" id="postman-collection" style="color: inherit; text-decoration: none;">
+  <h1>Postman collection</h1>
+</a>
+<p>An alternative way to test your API, you can use the Postman collection that contains sample requests. You can find a Postman collection in this project. To import this collection, do the following.</p>
+<p>Click on the import button:</p>
+<p><img src="images/import-collection-1.png?raw=true" alt="Alt text" title="Image 1"></p>
+<p>Click on the &quot;Choose Files&quot;:</p>
+<p><img src="images/import-collection-2.png?raw=true" alt="Alt text" title="Image 2"></p>
+<p>Select a file to import:</p>
+<p><img src="images/import-collection-3.png?raw=true" alt="Alt text" title="Image 3"></p>
+<p>Right click on the imported collection to set variables for the collection:</p>
+<p><img src="images/import-collection-4.png?raw=true" alt="Alt text" title="Image 4"></p>
+<p>Provide variables for the collection (similarly to how this was done in the course):</p>
+<p><img src="images/import-collection-5.png?raw=true" alt="Alt text" title="Image 5"></p>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Modules</a></li><li class=" tsd-kind-module"><a href="modules/auth_Jwt.html">auth/<wbr/>Jwt</a></li><li class=" tsd-kind-module"><a href="modules/auth_JwtPayload.html">auth/<wbr/>Jwt<wbr/>Payload</a></li><li class=" tsd-kind-module"><a href="modules/auth_utils.html">auth/utils</a></li><li class=" tsd-kind-module"><a href="modules/businessLogic_todo.html">business<wbr/>Logic/todo</a></li><li class=" tsd-kind-module"><a href="modules/dataLayer_todoAccess.html">data<wbr/>Layer/todo<wbr/>Access</a></li><li class=" tsd-kind-module"><a href="modules/interface_CreateTodoRequest.html">interface/<wbr/>Create<wbr/>Todo<wbr/>Request</a></li><li class=" tsd-kind-module"><a href="modules/interface_TodoItem.html">interface/<wbr/>Todo<wbr/>Item</a></li><li class=" tsd-kind-module"><a href="modules/interface_TodoUpdate.html">interface/<wbr/>Todo<wbr/>Update</a></li><li class=" tsd-kind-module"><a href="modules/interface_UpdateTodoRequest.html">interface/<wbr/>Update<wbr/>Todo<wbr/>Request</a></li><li class=" tsd-kind-module"><a href="modules/lambda_utils.html">lambda/utils</a></li><li class=" tsd-kind-module"><a href="modules/utils_logger.html">utils/logger</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>
