@@ -17,6 +17,7 @@
     "build": "tsc",
     "watch": "tsc -w",
     "clean": "tsc --clean",
+    "docs": "open docs/index.html",
     "lint": "eslint src/**/*.ts",
     "clear": "rm -rf dist/ coverage/ .nyc_output/",
     "clear:all": "rm -rf node_modules/ npm-debug.log && npm run clear",
