@@ -15,13 +15,14 @@
   },
   "scripts": {
     "build": "tsc",
-    "watch": "tsc -w",
     "clean": "tsc --clean",
+    "clear:all": "rm -rf node_modules/ npm-debug.log && npm run clear",
+    "clear": "rm -rf dist/ coverage/ .nyc_output/",
+    "deploy": "sls deploy -v",
     "docs": "open docs/index.html",
     "lint": "eslint src/**/*.ts",
-    "clear": "rm -rf dist/ coverage/ .nyc_output/",
-    "clear:all": "rm -rf node_modules/ npm-debug.log && npm run clear",
-    "test": "nyc jasmine-ts spec/**/*.spec.ts"
+    "test": "nyc jasmine-ts spec/**/*.spec.ts",
+    "watch": "tsc -w"
   },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
