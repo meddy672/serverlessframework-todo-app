@@ -42,7 +42,7 @@
     "jasmine-ts": "^0.4.0",
     "nyc": "^15.1.0",
     "serverless-aws-documentation": "^1.1.0",
-    "serverless-dynamodb-local": "^0.2.24",
+    "serverless-dynamodb-local": "^0.2.40",
     "serverless-iam-roles-per-function": "^3.2.0",
     "serverless-plugin-canary-deployments": "^0.4.7",
     "serverless-reqvalidator-plugin": "^1.0.4",
